@@ -8,6 +8,12 @@ def source_paths
   [File.expand_path(File.dirname(__FILE__))]
 end
 
+def add_importmap_gem
+  insert_into_file "Gemfile",
+    "gem 'importmap-rails'\n\n",
+    before: "# Hotwire's SPA-like page accelerator [https://turbo.hotwired.dev]"
+end
+
 def add_gems
   gem 'devise', '~> 4.8'
   gem 'friendly_id', '~> 5.4', '>= 5.4.2'
@@ -15,11 +21,12 @@ def add_gems
   gem 'name_of_person', '~> 1.1', '>= 1.1.1'
   gem 'pay', '~> 3.0' # https://github.com/pay-rails/
   gem 'stripe', '>= 2.8', '< 6.0' # I prefer Stripe but you can opt for braintree or paddle too. https://github.com/pay-rails/pay/blob/master/docs/1_installation.md#gemfile
-  #gem 'importmap-rails'
+  gem 'importmap-rails' #doing this seperately since this needs to be before the turbo gem
+  gem 'tailwindcss-rails'
 end
 
 def add_css_bundling
-  rails_command "css:install:tailwind"
+  rails_command "tailwindcss:install"
   # remove tailwind config that gets installed and swap for new one
   remove_file "tailwind.config.js"
 end
@@ -95,7 +102,9 @@ end
 # Main setup
 source_paths
 
+#add_importmap_gem
 add_gems
+rails_command "importmap:install"
 
 after_bundle do
   add_storage_and_rich_text

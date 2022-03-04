@@ -19,7 +19,7 @@ This template comes with Tailwind CSS preconfigured for use. To make use of tool
 When creating a new rails app simply pass the template filename and ruby extension through.
 
 ```bash
-$ rails new sample_app -d=<postgresql, mysql, sqlite3> -c=tailwind -j=emptymap -m template.rb
+$ rails new sample_app -d=<postgresql, mysql, sqlite3> -j=emptymap -m template.rb
 ```
 
 ### Once installed what do I get?
