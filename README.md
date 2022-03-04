@@ -1,6 +1,4 @@
-![Kickoff Tailwind](https://f001.backblazeb2.com/file/webcrunch/kt.jpg)
-
-A free and simple starting point for Ruby on Rails 7 applications.. This particular template utilizes [Tailwind CSS](https://tailwindcss.com/), a utility-first CSS framework for rapid UI development.
+A free and simple starting point for Ruby on Rails 7 applications.
 
 ### Included gems
 
@@ -21,7 +19,7 @@ This template comes with Tailwind CSS preconfigured for use. To make use of tool
 When creating a new rails app simply pass the template filename and ruby extension through.
 
 ```bash
-$ rails new sample_app -d <postgresql, mysql, sqlite3> -m template.rb
+$ rails new sample_app -d=<postgresql, mysql, sqlite3> -c=tailwind -j=emptymap -m template.rb
 ```
 
 ### Once installed what do I get?
@@ -38,10 +36,3 @@ $ rails new sample_app -d <postgresql, mysql, sqlite3> -m template.rb
 
 `$ ./bin/dev`
 
-### Watch an overview
-
-📹 Coming soon!
-
-### Credits
-
-Made by @justalever (yours truly). Find me on [Twitter](https://twitter.com/justalever), [web-crunch.com](https://web-crunch.com), [GitHub](https://github.com/justalever).

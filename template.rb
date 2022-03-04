@@ -1,8 +1,7 @@
 =begin
-Template Name: Kickoff - Tailwind CSS
-Author: Andy Leverenz
-Author URI: https://web-crunch.com
-Instructions: $ rails new myapp -d <postgresql, mysql, sqlite3> -m template.rb
+Template Name: Boilerplate - Tailwind CSS, Devise, ImportMap, Sidekiq, Payment Processing (Stripe + Pay-Rails), Name of Person and Friendly ID
+Author: Jason Bellows
+Instructions: $ rails new myapp -d=<postgresql, mysql, sqlite3> -j=importmap -c=tailwind -m template.rb
 =end
 
 def source_paths
@@ -14,9 +13,9 @@ def add_gems
   gem 'friendly_id', '~> 5.4', '>= 5.4.2'
   gem 'sidekiq', '~> 6.3', '>= 6.3.1'
   gem 'name_of_person', '~> 1.1', '>= 1.1.1'
-  gem 'cssbundling-rails'
   gem 'pay', '~> 3.0' # https://github.com/pay-rails/
   gem 'stripe', '>= 2.8', '< 6.0' # I prefer Stripe but you can opt for braintree or paddle too. https://github.com/pay-rails/pay/blob/master/docs/1_installation.md#gemfile
+  #gem 'importmap-rails'
 end
 
 def add_css_bundling
@@ -85,8 +84,12 @@ def add_pay
 end
 
 def add_tailwind_plugins
-  run "yarn add -D @tailwindcss/typography @tailwindcss/forms @tailwindcss/aspect-ratio @tailwindcss/line-clamp"
+  #run "yarn add -D @tailwindcss/typography @tailwindcss/forms @tailwindcss/aspect-ratio @tailwindcss/line-clamp"
+  #rails_command  "tailwindcss:build"
   copy_file "tailwind.config.js"
+  insert_into_file "app/views/shared/_head.html.erb", 
+    "<%= stylesheet_link_tag 'tailwind', 'inter-font', 'data-turbo-track': 'reload' %>\n",
+    before: "<%= stylesheet_link_tag  'application', 'data-turbolinks-track': 'reload' %>\n"
 end
 
 # Main setup
@@ -97,12 +100,12 @@ add_gems
 after_bundle do
   add_storage_and_rich_text
   add_css_bundling
-  add_tailwind_plugins
   add_users
   add_sidekiq
   copy_templates
   add_friendly_id
   add_pay
+  add_tailwind_plugins
 
   # Migrate
   rails_command "db:create"
